@@ -13,31 +13,36 @@ $dataset = json_decode(file_get_contents("tintin.data"));
 
 if($metode=="GET")
 {
-    if(rtrim($route,"/")=="")
+
+    //ruta => "/"
+    if((preg_match("#^/?$#",$route,$params) === 1))
     {
         echo "Very very simple api v0.1";
-        exit(0);
     } 
 
-    if(rtrim($route,"/")=="/hola")
+    //ruta => "/hola"
+    else if((preg_match("#^/hola/?$#",$route,$params) === 1))
     {
         echo "Hola a tothom";
         exit(0);
     } 
 
-    if((preg_match("#^/hola/(.*)?$#",$route,$params) === 1))
+    //ruta => /hola/{nom}
+    else if((preg_match("#^/hola/(.*)?$#",$route,$params) === 1))
     {
         $nom = $params[1];
         echo "Hola $nom";
         exit(0);
     } 
 
-    if(rtrim($route,"/")=="/tintin") 
+    //ruta => /tintin
+    if((preg_match("#^/tintin/?$#",$route,$params) === 1))
     {
         echo json_encode($dataset, JSON_UNESCAPED_UNICODE);
         exit(0);
     }
 
+    //ruta => /tintin/{id}
     if((preg_match("#^/tintin/([0-9]+)?$#",$route,$params) === 1))
     {
         $id = $params[1];
@@ -54,15 +59,15 @@ if($metode=="GET")
 
 if($metode=="POST")
 {
-    //not implemented yet
+    //not implemented yed.
 }
 
 if($metode=="PUT")
 {
-    //not implemented yet
+    //not implemented yed.
 }
 
 if($metode=="DELETE")
 {
-    //not implemented yet
+    //not implemented yed.
 }
