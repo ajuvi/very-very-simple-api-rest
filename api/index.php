@@ -18,6 +18,7 @@ if($metode=="GET")
     if((preg_match("#^/?$#",$route,$params) === 1))
     {
         echo "Very very simple api v0.1";
+        exit(0);
     } 
 
     //ruta => "/hola"
@@ -31,15 +32,13 @@ if($metode=="GET")
     else if((preg_match("#^/hola/(.*)?$#",$route,$params) === 1))
     {
         $nom = $params[1];
-        echo "Hola $nom";
-        exit(0);
+        writeDataToJson("Hola $nom");
     } 
 
     //ruta => /tintin
     if((preg_match("#^/tintin/?$#",$route,$params) === 1))
     {
-        echo json_encode($dataset, JSON_UNESCAPED_UNICODE);
-        exit(0);
+        writeDataToJson($dataset);
     }
 
     //ruta => /tintin/{id}
@@ -48,8 +47,7 @@ if($metode=="GET")
         $id = $params[1];
         foreach($dataset as $item){
             if($item->id==$id){
-                echo json_encode($item, JSON_UNESCAPED_UNICODE);
-                exit(0);
+                writeDataToJson($item);
             }
         }
         echo "null";
@@ -70,4 +68,10 @@ if($metode=="PUT")
 if($metode=="DELETE")
 {
     //not implemented yed.
+}
+
+function writeDataToJson($data){
+    header('Content-Type: application/json');
+    echo json_encode($item, JSON_UNESCAPED_UNICODE);
+    exit(0);
 }
