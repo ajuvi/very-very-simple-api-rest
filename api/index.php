@@ -72,6 +72,6 @@ if($metode=="DELETE")
 
 function writeDataToJson($data){
     header('Content-Type: application/json');
-    echo json_encode($item, JSON_UNESCAPED_UNICODE);
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
     exit(0);
 }
